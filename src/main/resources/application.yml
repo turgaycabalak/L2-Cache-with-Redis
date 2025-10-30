@@ -1,0 +1,50 @@
+spring:
+  jpa:
+    properties:
+      hibernate:
+        cache:
+          redisson:
+            collection:
+              expiration:
+                time_to_live: '60000'
+                max_idle_time: '30000'
+            fallback: 'true'
+            entity:
+              expiration:
+                time_to_live: '60000'
+                max_idle_time: '30000'
+            query:
+              expiration:
+                max_idle_time: '30000'
+                time_to_live: '60000'
+            config: redisson.yml
+          use_structured_entries: 'true'
+          use_second_level_cache: 'true'
+          region_prefix: superCacheService
+          default_cache_concurrency_strategy: read-write
+          region:
+            factory_class: org.redisson.hibernate.RedissonRegionFactory
+          use_query_cache: 'true'
+          auto_evict_collection_cache: 'true'
+        jdbc:
+          time_zone: UTC
+        generate_statistics: 'true'
+        hbm2ddl:
+          create_namespaces: 'true'
+        format_sql: 'true'
+        default_schema: supercache
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: 'true'
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: '2'
+    password: '123456'
+    username: multiservice
+    url: jdbc:postgresql://localhost:5432/postgres
+  application:
+    name: supercache
+server:
+  port: '9090'
