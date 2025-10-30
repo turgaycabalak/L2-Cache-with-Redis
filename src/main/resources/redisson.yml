@@ -1,0 +1,18 @@
+singleServerConfig:
+  address: "redis://127.0.0.1:6379"
+  password: "123456"
+  connectionMinimumIdleSize: 10
+  connectionPoolSize: 64
+  idleConnectionTimeout: 10000
+  connectTimeout: 10000
+  timeout: 3000
+  retryAttempts: 3
+  retryInterval: 1500
+  pingConnectionInterval: 60000
+  database: 0
+
+threads: 4
+nettyThreads: 8
+useScriptCache: true
+lockWatchdogTimeout: 30000
+#codec: !<org.redisson.codec.JsonJacksonCodec> {}
