@@ -34,9 +34,7 @@ public class AddressController {
   public List<AddressResponse> getAddressesByCustomerQuery(@PathVariable Long customerId) {
     List<AddressEntity> addressEntities = addressRepository.findByCustomer_Id(customerId);
 
-    return addressEntities.stream()
-        .map(Mapper::toAddressResponse)
-        .toList();
+    return Mapper.toAddressResponses(addressEntities);
   }
 
   @GetMapping("/by-customer/{customerId}/collection-cache")
@@ -47,9 +45,7 @@ public class AddressController {
     Set<AddressEntity> addressEntities = Optional.ofNullable(customerEntity.getAddresses())
         .orElse(Set.of());
 
-    return addressEntities.stream()
-        .map(Mapper::toAddressResponse)
-        .toList();
+    return Mapper.toAddressResponses(addressEntities);
   }
 
   @GetMapping("/{id}")

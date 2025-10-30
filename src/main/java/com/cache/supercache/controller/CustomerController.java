@@ -1,12 +1,14 @@
 package com.cache.supercache.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import com.cache.supercache.dto.AddressResponse;
 import com.cache.supercache.dto.CustomerResponse;
 import com.cache.supercache.dto.EmailResponse;
 import com.cache.supercache.dto.LookupResponse;
 import com.cache.supercache.dto.mapper.Mapper;
+import com.cache.supercache.entity.AddressEntity;
 import com.cache.supercache.entity.CustomerEntity;
 import com.cache.supercache.entity.EmailEntity;
 import com.cache.supercache.repository.CustomerRepository;
@@ -40,9 +42,8 @@ public class CustomerController {
     CustomerResponse.CustomerResponseBuilder customerBuilder = Mapper.toCustomerBuilder(customerEntity);
 
     if (addr) {
-      List<AddressResponse> addressResponses = customerEntity.getAddresses().stream()
-          .map(Mapper::toAddressResponse)
-          .toList();
+      Set<AddressEntity> addressEntities = customerEntity.getAddresses();
+      List<AddressResponse> addressResponses = Mapper.toAddressResponses(addressEntities);
       customerBuilder.addresses(addressResponses);
     }
 
@@ -54,7 +55,7 @@ public class CustomerController {
 
     if (intrst) {
       List<LookupResponse> interestResponses = customerEntity.getInterests().stream()
-          .map(at -> (new LookupResponse(at.getId(), at.getName(), at.getCode())))
+          .map(at -> new LookupResponse(at.getId(), at.getName(), at.getCode()))
           .toList();
       customerBuilder.interests(interestResponses);
     }

@@ -1,6 +1,7 @@
 package com.cache.supercache.dto.mapper;
 
 import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
 
 import com.cache.supercache.dto.AddressResponse;
@@ -46,6 +47,7 @@ public class Mapper {
   public List<AddressResponse> toAddressResponses(Collection<AddressEntity> entities) {
     return entities.stream()
         .map(Mapper::toAddressResponse)
+        .sorted(Comparator.comparingLong(AddressResponse::id))
         .toList();
   }
 
