@@ -43,7 +43,6 @@ public class AddressEntity implements Serializable {
 
   @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "address_type_code", referencedColumnName = "code", nullable = false)
-  @Cache(region = "address_types", usage = CacheConcurrencyStrategy.READ_WRITE)
   private AddressTypeEntity addressType;
 
   private String address;
