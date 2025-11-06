@@ -25,7 +25,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @NoArgsConstructor
 @Table(name = "address_types")
 @Cacheable
-@Cache(region = "address_types", usage = CacheConcurrencyStrategy.READ_WRITE)
+@Cache(region = "address_types", usage = CacheConcurrencyStrategy.READ_ONLY)
 public class AddressTypeEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
